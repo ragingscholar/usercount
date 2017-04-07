@@ -31,7 +31,7 @@ if not os.path.isfile("mastostats.csv"):
 
         # Create CSV header row
         with open("mastostats.csv", "w") as myfile:
-            myfile.write("timestamp,usercount,tootscount\n")
+            myfile.write("timestamp,usercount,instancecount\n")
         myfile.close()
 
 # Returns the parameter from the specified file
@@ -80,28 +80,19 @@ headers={ 'Authorization': 'Bearer %s'%uc_access_token }
 # Get current timestamp
 ts = int(time.time())
 
-# Get the /about/more page from the server
-page = requests.get('https://' + mastodon_hostname + '/about/more')
+page = requests.get('https://instances.mastodon.xyz/instances.json')
 
-# We could use lxml's html parser, but that requires loads of packages to be
-# installed, as it's all C bindings and stuff. So we're gonna do it in a
-# really quick and horrible way! 
+instances = json.loads(page.content)
 
-# Returns the substring of s which is between substring1 and substring2
-def get_between(s, substring1, substring2):
-    return s[(s.index(substring1)+len(substring1)):s.index(substring2)]
+user_count = 0
+instance_count = 0
+for instance in instances:
+    user_count += instance["users"]
+    if instance["up"] == True:
+        instance_count += 1
 
-# Remove newlines to make our life easier
-pagecontent = page.content.replace("\n", "")
-
-# Get the number of users, removing commas
-current_id = int( get_between(pagecontent, "Home to</span><strong>", "</strong><span>users").replace(",", ""))
-
-# Get the number of toots, removing commas
-num_toots = int (get_between(pagecontent, "Who authored</span><strong>", "</strong><span>statuses").replace(",", ""))
-
-print("Number of users: %s "% current_id)
-print("Number of toots: %s "% num_toots )
+print("Number of users: %s " % user_count)
+print("Number of instances: %s " % instance_count)
 
 ###############################################################################
 # LOG THE DATA
@@ -109,7 +100,7 @@ print("Number of toots: %s "% num_toots )
 
 # Append to CSV file
 with open("mastostats.csv", "a") as myfile:
-    myfile.write(str(ts) + "," + str(current_id) + "," + str(num_toots) + "\n")
+    myfile.write(str(ts) + "," + str(user_count) + "," + str(instance_count) + "\n")
 
 
 ###############################################################################
@@ -142,7 +133,7 @@ one_week = one_hour * 168
 if len(usercount_dict) > 2:
     one_hour_ago_ts = ts - one_hour
     one_hour_ago_val = find_closest_timestamp( usercount_dict, one_hour_ago_ts )
-    hourly_change = current_id - one_hour_ago_val['usercount']
+    hourly_change = user_count - one_hour_ago_val['usercount']
     print "Hourly change %s"%hourly_change
     if hourly_change > 0:
         hourly_change_string = "+" + format(hourly_change, ",d") + " in the last hour\n"
@@ -151,7 +142,7 @@ if len(usercount_dict) > 2:
 if len(usercount_dict) > 24:
     one_day_ago_ts = ts - one_day
     one_day_ago_val = find_closest_timestamp( usercount_dict, one_day_ago_ts )
-    daily_change = current_id - one_day_ago_val['usercount']
+    daily_change = user_count - one_day_ago_val['usercount']
     print "Daily change %s"%daily_change
     if daily_change > 0:
         daily_change_string = "+" + format(daily_change, ",d") + " in the last day\n"
@@ -160,7 +151,7 @@ if len(usercount_dict) > 24:
 if len(usercount_dict) > 168:
     one_week_ago_ts = ts - one_week
     one_week_ago_val = find_closest_timestamp( usercount_dict, one_week_ago_ts )
-    weekly_change = current_id - one_week_ago_val['usercount']
+    weekly_change = user_count - one_week_ago_val['usercount']
     print "Weekly change %s"%weekly_change
     if weekly_change > 0:
         weekly_change_string = "+" + format(weekly_change, ",d") + " in the last week\n"
@@ -188,7 +179,7 @@ if do_upload:
     # T  O  O  T !
     ###############################################################################
 
-    toot_text = format(current_id, ",d") + " accounts \n"
+    toot_text = format(user_count, ",d") + " accounts \n"
     toot_text += hourly_change_string
     toot_text += daily_change_string
     toot_text += weekly_change_string

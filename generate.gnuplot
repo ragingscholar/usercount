@@ -32,11 +32,10 @@ plot "mastostats.csv" using ($1):(d($2))
 uc_derivative_low = GPVAL_DATA_Y_MIN
 uc_derivative_high = GPVAL_DATA_Y_MAX
 
-# Plot derivative of 'tootscount' of the past week and get bounds (for GRAPH 2 y1)
-plot "mastostats.csv" using ($1):(d($3))
-tootslow  = GPVAL_DATA_Y_MIN
-tootshigh = GPVAL_DATA_Y_MAX
-tootslast = GPVAL_DATA_X_MAX
+# Plot derivative of 'instancecount' of the past week and get bounds (for GRAPH 2 y1)
+plot "mastostats.csv" using 1:3
+instanceslow  = GPVAL_DATA_Y_MIN
+instanceshigh = GPVAL_DATA_Y_MAX
 
 ###############################################################################
 # SETUP
@@ -98,7 +97,7 @@ set ylabel "Number of users" textcolor rgb "#93ddff" offset 1,0,0
 
 # Set Y2 axis
 set y2r [0:uc_derivative_high * 2]
-set y2tics 10 nomirror
+#set y2tics 10 nomirror
 set y2label 'Hourly increase' textcolor rgb "#7ae9d8" 
 
 # Set X axis
@@ -126,7 +125,7 @@ plot "mastostats.csv" every ::1 using 1:2 w filledcurves x1 title '' lc rgb "#2e
 
 ###############################################################################
 # GRAPH 2
-# Number of toots per hour
+# Number of instances
 ###############################################################################
 
 # Unset things from the previous graph
@@ -140,8 +139,8 @@ set lmargin lmarg
 set rmargin rmarg
 
 # Set Y axis
-set yr [0:tootshigh]
-set ylabel "Toots per hour" textcolor rgb "#E9967A"
+set yr [0:instanceshigh]
+set ylabel "Active instances" textcolor rgb "#E9967A"
 
 # Set X axis
 set xdata time 
