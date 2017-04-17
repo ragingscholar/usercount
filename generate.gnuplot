@@ -8,7 +8,7 @@ d2(x,y) = ($0 == 0) ? (x1 = x, y1 = y, 1/0) : (x2 = x1, x1 = x, y2 = y1, y1 = y,
 # Set length of time for the entire graph
 day = 24*60*60
 week = 7*day
-timespan = day
+timespan = week
 
 # Set tic width
 tic_width = day
@@ -24,7 +24,8 @@ set xrange [time(0) - timespan:]
 
 # Plot 'usercount' of the past week and get bounds (for GRAPH 1 y1)
 plot "mastostats.csv" using 1:2
-usercountlow = GPVAL_DATA_Y_MIN
+usercountlow = 0
+#usercountlow = GPVAL_DATA_Y_MIN
 usercounthigh = GPVAL_DATA_Y_MAX
 
 # Plot derivative of 'usercount' of the past week and get bounds (for GRAPH 1 y2)
@@ -42,8 +43,8 @@ instanceshigh = GPVAL_DATA_Y_MAX
 ###############################################################################
 
 # Set up our fonts and such
-set terminal png truecolor size 1464,660 enhanced font "./fonts/RobotoCond.ttf" 17 background rgb "#282d37"
-set output 'graph.png'
+set terminal png truecolor size 1464,660 enhanced font "/home/lode/usercount/fonts/RobotoCond.ttf" 16 background rgb "#282d37"
+set output 'week.png'
 
 # Set border colour and line width
 set border lw 3 lc rgb "white"
@@ -77,7 +78,7 @@ cmarg = 0       # Centre margin
 bmarg = 2.5     # Bottom margin
 
 lmarg = 12      # Left margin
-rmarg = 9       # Right margin
+rmarg = 12       # Right margin
 
 
 
@@ -97,8 +98,8 @@ set ylabel "Number of users" textcolor rgb "#93ddff" offset 1,0,0
 
 # Set Y2 axis
 set y2r [0:uc_derivative_high * 2]
-#set y2tics 10 nomirror
 set y2label 'Hourly increase' textcolor rgb "#7ae9d8" 
+set y2tics 3000 
 
 # Set X axis
 set xdata time
@@ -154,7 +155,7 @@ set style line 12 lc rgb "#FEFEFE" lt 1 lw 5
 set grid
 
 # Plot the graph
-plot "mastostats.csv" every ::1 using ($1):(d($3)) w filledcurves x1 title '' lc rgb "#E9967A"
+plot "mastostats.csv" every ::1 using 1:3 w filledcurves x1 title '' lc rgb "#E9967A"
 
 
 # I think this needs to be here for some reason
