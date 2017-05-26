@@ -87,6 +87,7 @@ instances = json.loads(page.content)
 user_count = 0
 instance_count = 0
 for instance in instances:
+    if not "users" in instance: continue
     user_count += instance["users"]
     if instance["up"] == True:
         instance_count += 1
