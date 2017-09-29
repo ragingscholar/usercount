@@ -211,6 +211,7 @@ if len(cnusercount_dict) > 2:
     # cninstance_hourly_change_string = "+" + format(cninstance_hourly_change, ",d") + "(" + format(cninstance_count, ",d") + ") 位用户\n"
     cmxuser_hourly_change_string = "过去一小时中 + " + format(cmxuser_hourly_change, ",d") + "(" + format(cmxuser_count, ",d") + ") 位用户\n"
     cmxtoot_hourly_change_string = "过去一小时中 + " + format(cmxtoot_hourly_change, ",d") + "(" + format(cmxtoot_count, ",d") + ") 条嘟文\n"
+    sys.exit(0)
 ###############################################################################
 # CREATE AND UPLOAD THE CHART
 ###############################################################################
@@ -251,7 +252,6 @@ if do_upload:
 
     print "Tooting..."
     print toot_text
-    sys.exit(0)
 
     mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
 
