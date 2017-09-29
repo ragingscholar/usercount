@@ -137,7 +137,7 @@ if len(usercount_dict) > 2:
     hourly_change = user_count - one_hour_ago_val['usercount']
     print "Hourly change %s"%hourly_change
     if hourly_change > 0:
-        hourly_change_string = "过去一小时中" + "新增" + format(hourly_change, ",d") + "\n"
+        hourly_change_string = "过去一小时中" + "新增" + format(hourly_change, ",d") + "位用户\n"
 
 # Daily change
 if len(usercount_dict) > 24:
@@ -146,7 +146,7 @@ if len(usercount_dict) > 24:
     daily_change = user_count - one_day_ago_val['usercount']
     print "Daily change %s"%daily_change
     if daily_change > 0:
-        daily_change_string = "过去一天中" + "新增" + format(daily_change, ",d") + "\n"
+        daily_change_string = "过去一天中" + "新增" + format(daily_change, ",d") + "位用户\n"
 
 # Weekly change
 if len(usercount_dict) > 168:
@@ -155,7 +155,7 @@ if len(usercount_dict) > 168:
     weekly_change = user_count - one_week_ago_val['usercount']
     print "Weekly change %s"%weekly_change
     if weekly_change > 0:
-        weekly_change_string = "过去一周中" + "新增" + format(weekly_change, ",d") + "\n"
+        weekly_change_string = "过去一周中" + "新增" + format(weekly_change, ",d") + "位用户\n"
 
 
 ###############################################################################
@@ -182,10 +182,10 @@ if do_upload:
 
     toot_text = "毛象宇宙中共有 \n"
     toot_text += format(user_count, ",d") + " 位用户 \n"
+    toot_text += format(instance_count, ",d") + " 个已知活跃实例\n"
     toot_text += hourly_change_string
     toot_text += daily_change_string
     toot_text += weekly_change_string
-    toot_text += format(instance_count, ",d") + " 已知活跃实例\n"
 
     print "Tooting..."
     print toot_text
