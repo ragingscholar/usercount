@@ -259,10 +259,10 @@ if do_upload:
     toot_text += hourly_change_string
     toot_text += daily_change_string
     toot_text += weekly_change_string
-    toot_text += "<-----长毛象中文区----->\n"
+    # toot_text += "<-----长毛象中文区----->\n"
     # toot_text += format(cnuser_count, ",d") + " 位中文用户\n"
-    toot_text += format(cninstance_count, ",d") + " 个已知中文实例\n"
-    toot_text += cnuser_hourly_change_string
+    # toot_text += format(cninstance_count, ",d") + " 个已知中文实例\n"
+    # toot_text += cnuser_hourly_change_string
     toot_text += "<--------cmx.im-------->\n"
     toot_text += cmxuser_hourly_change_string
     toot_text += cmxtoot_hourly_change_string
