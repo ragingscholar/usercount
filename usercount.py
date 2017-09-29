@@ -41,7 +41,7 @@ if not os.path.isfile("cnmastostats.csv"):
 
         # Create CSV header row
         with open("cnmastostats.csv", "w") as myfile:
-            myfile.write("timestamp,cnusercount,cninstancecount,cmxusercount,cmxtootcount\t")
+            myfile.write("timestamp,cnusercount,cninstancecount,cmxusercount,cmxtootcount\n")
         myfile.close()
 
 # Returns the parameter from the specified file
