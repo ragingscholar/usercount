@@ -26,7 +26,7 @@ if '--no-upload' in sys.argv:
     do_upload = False
 
 # Check mastostats.csv exists, if not, create it
-if not os.path.isfile("mastostats.csv"):    
+if not os.path.isfile("mastostats.csv"):
         print("mastostats.csv does not exist, creating it...")
 
         # Create CSV header row
@@ -37,7 +37,7 @@ if not os.path.isfile("mastostats.csv"):
 # Returns the parameter from the specified file
 def get_parameter( parameter, file_path ):
     # Check if secrets file exists
-    if not os.path.isfile(file_path):    
+    if not os.path.isfile(file_path):
         print("File %s not found, exiting."%file_path)
         sys.exit(0)
 
@@ -137,7 +137,7 @@ if len(usercount_dict) > 2:
     hourly_change = user_count - one_hour_ago_val['usercount']
     print "Hourly change %s"%hourly_change
     if hourly_change > 0:
-        hourly_change_string = "+" + format(hourly_change, ",d") + " in the last hour\n"
+        hourly_change_string = "过去一小时中" + "新增" + format(hourly_change, ",d") + "\n"
 
 # Daily change
 if len(usercount_dict) > 24:
@@ -146,7 +146,7 @@ if len(usercount_dict) > 24:
     daily_change = user_count - one_day_ago_val['usercount']
     print "Daily change %s"%daily_change
     if daily_change > 0:
-        daily_change_string = "+" + format(daily_change, ",d") + " in the last day\n"
+        daily_change_string = "过去一天中" + "新增" + format(daily_change, ",d") + "\n"
 
 # Weekly change
 if len(usercount_dict) > 168:
@@ -155,7 +155,7 @@ if len(usercount_dict) > 168:
     weekly_change = user_count - one_week_ago_val['usercount']
     print "Weekly change %s"%weekly_change
     if weekly_change > 0:
-        weekly_change_string = "+" + format(weekly_change, ",d") + " in the last week\n"
+        weekly_change_string = "过去一周中" + "新增" + format(weekly_change, ",d") + "\n"
 
 
 ###############################################################################
@@ -180,12 +180,14 @@ if do_upload:
     # T  O  O  T !
     ###############################################################################
 
-    toot_text = format(user_count, ",d") + " accounts \n"
+    toot_text = "毛象宇宙中共有 \n"
+    toot_text += format(user_count, ",d") + " 位用户 \n"
     toot_text += hourly_change_string
     toot_text += daily_change_string
     toot_text += weekly_change_string
+    toot_text += format(instance_count, ",d") + " 已知活跃实例\n"
 
-    print "Tooting..." 
+    print "Tooting..."
     print toot_text
 
     mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
