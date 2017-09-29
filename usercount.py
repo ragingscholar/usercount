@@ -35,6 +35,15 @@ if not os.path.isfile("mastostats.csv"):
             myfile.write("timestamp,usercount,instancecount\n")
         myfile.close()
 
+# Check cnmastostats.csv exists, if not, create it
+if not os.path.isfile("cnmastostats.csv"):
+        print("cnmastostats.csv does not exist, creating it...")
+
+        # Create CSV header row
+        with open("cnmastostats.csv", "w") as myfile:
+            myfile.write("timestamp,cnusercount,cninstancecount,cmxusercount,cmxtootcount\t")
+        myfile.close()
+
 # Returns the parameter from the specified file
 def get_parameter( parameter, file_path ):
     # Check if secrets file exists
@@ -102,7 +111,6 @@ cninstance_count = 0
 cmxuser_count = 0
 cmxtoot_count = 0
 for instance in instances:
-    print(instance)
     if not "info" in instance: continue
     if not "languages" in instance["info"]: continue
     if "zh" in instance["info"]["languages"]:
@@ -118,7 +126,6 @@ print("Number of Chinese users: %s " % cnuser_count)
 print("Number of Chinese instances: %s " % cninstance_count)
 print("Number of CMX users: %s " % cmxuser_count)
 print("Number of CMX statuses %s " % cmxtoot_count)
-sys.exit(0)
 ###############################################################################
 # LOG THE DATA
 ###############################################################################
@@ -127,6 +134,8 @@ sys.exit(0)
 with open("mastostats.csv", "a") as myfile:
     myfile.write(str(ts) + "," + str(user_count) + "," + str(instance_count) + "\n")
 
+with open("cnmastostats.csv", "a") as myfile:
+    myfile.write(str(ts) + "," + str(cnuser_count) + "," + str(cninstance_count) + "," + str(cmxuser_count) + "," + str(cmxtoot_count) + "\n")
 
 ###############################################################################
 # WORK OUT THE TOOT TEXT
@@ -205,11 +214,15 @@ if do_upload:
     ###############################################################################
 
     toot_text = "毛象宇宙中共有 \n"
-    toot_text += format(user_count, ",d") + " 位用户 \n"
+    toot_text += format(user_count, ",d") + " 位用户\n"
     toot_text += format(instance_count, ",d") + " 个已知活跃实例\n"
     toot_text += hourly_change_string
     toot_text += daily_change_string
     toot_text += weekly_change_string
+    toot_text += format(cnuser_count, ",d") + " 位中文用户\n"
+    toot_text += format(cninstance_count, ",d") + " 个已知中文实例\n"
+    toot_text += "长毛象中文站共有 " + format(cmxuser_count, ",d") + " 位用户\n"
+    toot_text += "他们一共嘟出了 " + format(cmxtoot_count, ",d") + " 条嘟文\n"
 
     print "Tooting..."
     print toot_text
