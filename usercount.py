@@ -103,6 +103,7 @@ cmxuser_count = 0
 cmxtoot_count = 0
 for instance in instances:
     print(instance)
+    if not "info" in instance: continue
     if not "languages" in instance["info"]: continue
     if "zh" in instance["info"]["languages"]:
         if not "users" in instance: continue
