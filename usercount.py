@@ -101,6 +101,8 @@ cninstance_count = 0
 cmxuser_count = 0
 cmxtoot_count = 0
 for instance in instances:
+    print(instance)
+    print(instance["languages"])
     if "zh" in instance["languages"]:
         if not "users" in instance: continue
         cnuser_count += instance["users"]
