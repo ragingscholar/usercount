@@ -273,7 +273,7 @@ if do_upload:
     toot_text += tootcntoot_hourly_change_string
     toot_text += "<--------acg.mn-------->\n"
     toot_text += acguser_hourly_change_string
-    toot_text += acgoot_hourly_change_string
+    toot_text += acgtoot_hourly_change_string
 
 
     print "Tooting..."
