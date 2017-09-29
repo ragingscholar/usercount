@@ -146,6 +146,10 @@ with open('mastostats.csv') as f:
     usercount_dict = [{k: int(v) for k, v in row.items()}
         for row in csv.DictReader(f, skipinitialspace=True)]
 
+with open('cnmastostats.csv') as f:
+    cnusercount_dict = [{k: int(v) for k, v in row.items()}
+        for row in csv.DictReader(f, skipinitialspace=True)]
+
 # Returns the timestamp,usercount pair which is closest to the specified timestamp
 def find_closest_timestamp( input_dict, seek_timestamp ):
     a = []
@@ -170,7 +174,7 @@ if len(usercount_dict) > 2:
     hourly_change = user_count - one_hour_ago_val['usercount']
     print "Hourly change %s"%hourly_change
     if hourly_change > 0:
-        hourly_change_string = "过去一小时中" + "新增" + format(hourly_change, ",d") + "位用户\n"
+        hourly_change_string = "过去一小时中" + "+" + format(hourly_change, ",d") + "位用户\n"
 
 # Daily change
 if len(usercount_dict) > 24:
@@ -179,7 +183,7 @@ if len(usercount_dict) > 24:
     daily_change = user_count - one_day_ago_val['usercount']
     print "Daily change %s"%daily_change
     if daily_change > 0:
-        daily_change_string = "过去一天中" + "新增" + format(daily_change, ",d") + "位用户\n"
+        daily_change_string = "过去一天中" + "+" + format(daily_change, ",d") + "位用户\n"
 
 # Weekly change
 if len(usercount_dict) > 168:
@@ -188,9 +192,25 @@ if len(usercount_dict) > 168:
     weekly_change = user_count - one_week_ago_val['usercount']
     print "Weekly change %s"%weekly_change
     if weekly_change > 0:
-        weekly_change_string = "过去一周中" + "新增" + format(weekly_change, ",d") + "位用户\n"
+        weekly_change_string = "过去一周中" + "+" + format(weekly_change, ",d") + "位用户\n"
 
-
+# Chinese Instance Monitoring
+# Hourly change
+if len(cnusercount_dict) > 2:
+    one_hour_ago_ts = ts - one_hour
+    one_hour_ago_val = find_closest_timestamp( cnusercount_dict, one_hour_ago_ts )
+    cnuser_hourly_change = cnuser_count - one_hour_ago_val['cnusercount']
+    # cninstance_hourly_change = cninstance_count - one_hour_ago_val['cninstancecount']
+    cmxuser_hourly_change = cmxuser_count - one_hour_ago_val['cmxusercount']
+    cmxtoot_hourly_change = cmxtoot_count - one_hour_ago_val['cmxtootcount']
+    print "CN User Hourly change %s"%cnuser_hourly_change
+    # print "CN Instance Hourly change %s"%cninstance_hourly_change
+    print "CMX User Hourly change %s"%cmxuser_hourly_change
+    print "CMX Toot Hourly change %s"%cmxtoot_hourly_change
+    cnuser_hourly_change_string = "过去一小时中 + " + format(cnuser_hourly_change, ",d") + "(" + format(cnuser_count, ",d") + ") 位用户\n"
+    # cninstance_hourly_change_string = "+" + format(cninstance_hourly_change, ",d") + "(" + format(cninstance_count, ",d") + ") 位用户\n"
+    cmxuser_hourly_change_string = "过去一小时中 + " + format(cmxuser_hourly_change, ",d") + "(" + format(cmxuser_count, ",d") + ") 位用户\n"
+    cmxtoot_hourly_change_string = "过去一小时中 + " + format(cmxtoot_hourly_change, ",d") + "(" + format(cmxtoot_count, ",d") + ") 条嘟文\n"
 ###############################################################################
 # CREATE AND UPLOAD THE CHART
 ###############################################################################
@@ -220,14 +240,18 @@ if do_upload:
     toot_text += daily_change_string
     toot_text += weekly_change_string
     toot_text += "<-----长毛象中文区----->\n"
-    toot_text += format(cnuser_count, ",d") + " 位中文用户\n"
+    # toot_text += format(cnuser_count, ",d") + " 位中文用户\n"
     toot_text += format(cninstance_count, ",d") + " 个已知中文实例\n"
+    toot_text += cnuser_hourly_change_string
     toot_text += "<-------cmx.im------->\n"
-    toot_text += "cmx.im共有 " + format(cmxuser_count, ",d") + " 位用户\n"
-    toot_text += "他们一共嘟出了 " + format(cmxtoot_count, ",d") + " 条嘟文\n"
+    toot_text += cmxuser_hourly_change_string
+    toot_text += cmxtoot_hourly_change_string
+    # toot_text += "cmx.im共有 " + format(cmxuser_count, ",d") + " 位用户\n"
+    # toot_text += "他们一共嘟出了 " + format(cmxtoot_count, ",d") + " 条嘟文\n"
 
     print "Tooting..."
     print toot_text
+    sys.exit(0)
 
     mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
 
