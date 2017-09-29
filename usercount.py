@@ -213,15 +213,17 @@ if do_upload:
     # T  O  O  T !
     ###############################################################################
 
-    toot_text = "毛象宇宙中共有 \n"
+    toot_text = "<-----长毛象宇宙中----->\n"
     toot_text += format(user_count, ",d") + " 位用户\n"
     toot_text += format(instance_count, ",d") + " 个已知活跃实例\n"
     toot_text += hourly_change_string
     toot_text += daily_change_string
     toot_text += weekly_change_string
+    toot_text += "<-----长毛象中文区----->\n"
     toot_text += format(cnuser_count, ",d") + " 位中文用户\n"
     toot_text += format(cninstance_count, ",d") + " 个已知中文实例\n"
-    toot_text += "长毛象中文站共有 " + format(cmxuser_count, ",d") + " 位用户\n"
+    toot_text += "<-------cmx.im------->\n"
+    toot_text += "cmx.im共有 " + format(cmxuser_count, ",d") + " 位用户\n"
     toot_text += "他们一共嘟出了 " + format(cmxtoot_count, ",d") + " 条嘟文\n"
 
     print "Tooting..."
