@@ -41,7 +41,7 @@ if not os.path.isfile("cnmastostats.csv"):
 
         # Create CSV header row
         with open("cnmastostats.csv", "w") as myfile:
-            myfile.write("timestamp,cnusercount,cninstancecount,cmxusercount,cmxtootcount\n")
+            myfile.write("timestamp,cnusercount,cninstancecount,cmxusercount,cmxtootcount,tootcnusercount,tootcntootcount,acgusercount,acgtootcount\n")
         myfile.close()
 
 # Returns the parameter from the specified file
@@ -121,6 +121,12 @@ for instance in instances:
     if instance["name"] == "cmx.im":
         cmxuser_count = instance["users"]
         cmxtoot_count = instance["statuses"]
+    if instance["name"] == "tootcn.com":
+        tootcnuser_count = instance["users"]
+        tootcntoot_count = instance["statuses"]
+    if instance["name"] == "acg.mn":
+        acguser_count = instance["users"]
+        acgtoot_count = instance["statuses"]
 
 print("Number of Chinese users: %s " % cnuser_count)
 print("Number of Chinese instances: %s " % cninstance_count)
@@ -135,7 +141,7 @@ with open("mastostats.csv", "a") as myfile:
     myfile.write(str(ts) + "," + str(user_count) + "," + str(instance_count) + "\n")
 
 with open("cnmastostats.csv", "a") as myfile:
-    myfile.write(str(ts) + "," + str(cnuser_count) + "," + str(cninstance_count) + "," + str(cmxuser_count) + "," + str(cmxtoot_count) + "\n")
+    myfile.write(str(ts) + "," + str(cnuser_count) + "," + str(cninstance_count) + "," + str(cmxuser_count) + "," + str(cmxtoot_count) + "," + str(tootcnuser_count) + "," + str(tootcntoot_count) + "," + str(acguser_count) + "," + str(acgtoot_count) + "\n")
 
 ###############################################################################
 # WORK OUT THE TOOT TEXT
@@ -244,7 +250,7 @@ if do_upload:
     # toot_text += format(cnuser_count, ",d") + " 位中文用户\n"
     toot_text += format(cninstance_count, ",d") + " 个已知中文实例\n"
     toot_text += cnuser_hourly_change_string
-    toot_text += "<-------cmx.im------->\n"
+    toot_text += "<--------cmx.im-------->\n"
     toot_text += cmxuser_hourly_change_string
     toot_text += cmxtoot_hourly_change_string
     # toot_text += "cmx.im共有 " + format(cmxuser_count, ",d") + " 位用户\n"
