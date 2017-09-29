@@ -95,6 +95,26 @@ for instance in instances:
 print("Number of users: %s " % user_count)
 print("Number of instances: %s " % instance_count)
 
+# Get Chinese instances info
+cnuser_count = 0
+cninstance_count = 0
+cmxuser_count = 0
+cmxtoot_count = 0
+for instance in instances:
+    if "zh" in instance["languages"]:
+        if not "users" in instance: continue
+        cnuser_count += instance["users"]
+        if instance["up"] == True:
+            cninstance_count += 1
+    if instance["name"] == "cmx.im":
+        cmxuser_count = instance["users"]
+        cmxtoot_count = instance["statuses"]
+
+print("Number of Chinese users: %s " % cnuser_count)
+print("Number of Chinese instances: %s " % cninstance_count)
+print("Number of CMX users: %s " % cmxuser_count)
+print("Number of CMX statuses %s " % cmxtoot_count)
+exti()
 ###############################################################################
 # LOG THE DATA
 ###############################################################################
