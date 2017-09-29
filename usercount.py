@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 from six.moves import urllib
 from datetime import datetime
@@ -101,8 +102,9 @@ cninstance_count = 0
 cmxuser_count = 0
 cmxtoot_count = 0
 for instance in instances:
-    if not "languages" in instance: continue
-    if "zh" in instance["languages"]:
+    print(instance)
+    if not "languages" in instance["info"]: continue
+    if "zh" in instance["info"]["languages"]:
         if not "users" in instance: continue
         cnuser_count += instance["users"]
         if instance["up"] == True:
@@ -115,7 +117,7 @@ print("Number of Chinese users: %s " % cnuser_count)
 print("Number of Chinese instances: %s " % cninstance_count)
 print("Number of CMX users: %s " % cmxuser_count)
 print("Number of CMX statuses %s " % cmxtoot_count)
-exti()
+sys.exit(0)
 ###############################################################################
 # LOG THE DATA
 ###############################################################################
