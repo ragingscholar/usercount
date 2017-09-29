@@ -207,16 +207,29 @@ if len(cnusercount_dict) > 2:
     one_hour_ago_val = find_closest_timestamp( cnusercount_dict, one_hour_ago_ts )
     cnuser_hourly_change = cnuser_count - one_hour_ago_val['cnusercount']
     # cninstance_hourly_change = cninstance_count - one_hour_ago_val['cninstancecount']
+
     cmxuser_hourly_change = cmxuser_count - one_hour_ago_val['cmxusercount']
     cmxtoot_hourly_change = cmxtoot_count - one_hour_ago_val['cmxtootcount']
+    tootcnuser_hourly_change = tooncnuser_count - one_hour_ago_val['tootcnusercount']
+    tootcntoot_hourly_change = tooncntoot_count - one_hour_ago_val['tooncntootcount']
+    acguser_hourly_change = acguser_count - one_hour_ago_val['acgusercount']
+    acgtoot_hourly_change = acgtoot_count - one_hour_ago_val['acgtootcount']
+
     print "CN User Hourly change %s"%cnuser_hourly_change
     # print "CN Instance Hourly change %s"%cninstance_hourly_change
     print "CMX User Hourly change %s"%cmxuser_hourly_change
     print "CMX Toot Hourly change %s"%cmxtoot_hourly_change
+
     cnuser_hourly_change_string = "过去一小时中 + " + format(cnuser_hourly_change, ",d") + "(" + format(cnuser_count, ",d") + ") 位用户\n"
+
     # cninstance_hourly_change_string = "+" + format(cninstance_hourly_change, ",d") + "(" + format(cninstance_count, ",d") + ") 位用户\n"
     cmxuser_hourly_change_string = "过去一小时中 + " + format(cmxuser_hourly_change, ",d") + "(" + format(cmxuser_count, ",d") + ") 位用户\n"
     cmxtoot_hourly_change_string = "过去一小时中 + " + format(cmxtoot_hourly_change, ",d") + "(" + format(cmxtoot_count, ",d") + ") 条嘟文\n"
+    tootcnuser_hourly_change_string = "过去一小时中 + " + format(tootcnuser_hourly_change, ",d") + "(" + format(tootcnuser_count, ",d") + ") 位用户\n"
+    tootcntoot_hourly_change_string = "过去一小时中 + " + format(tootcntoot_hourly_change, ",d") + "(" + format(tootcntoot_count, ",d") + ") 条嘟文\n"
+    acguser_hourly_change_string = "过去一小时中 + " + format(acguser_hourly_change, ",d") + "(" + format(acguser_count, ",d") + ") 位用户\n"
+    acgtoot_hourly_change_string = "过去一小时中 + " + format(acgtoot_hourly_change, ",d") + "(" + format(acgtoot_count, ",d") + ") 条嘟文\n"
+
     # sys.exit(0)
 ###############################################################################
 # CREATE AND UPLOAD THE CHART
@@ -255,6 +268,13 @@ if do_upload:
     toot_text += cmxtoot_hourly_change_string
     # toot_text += "cmx.im共有 " + format(cmxuser_count, ",d") + " 位用户\n"
     # toot_text += "他们一共嘟出了 " + format(cmxtoot_count, ",d") + " 条嘟文\n"
+    toot_text += "<------tootcn.com------>\n"
+    toot_text += tootcnuser_hourly_change_string
+    toot_text += tootcntoot_hourly_change_string
+    toot_text += "<--------acg.mn-------->\n"
+    toot_text += acguser_hourly_change_string
+    toot_text += acgoot_hourly_change_string
+
 
     print "Tooting..."
     print toot_text
