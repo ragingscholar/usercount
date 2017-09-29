@@ -210,8 +210,8 @@ if len(cnusercount_dict) > 2:
 
     cmxuser_hourly_change = cmxuser_count - one_hour_ago_val['cmxusercount']
     cmxtoot_hourly_change = cmxtoot_count - one_hour_ago_val['cmxtootcount']
-    tootcnuser_hourly_change = tooncnuser_count - one_hour_ago_val['tootcnusercount']
-    tootcntoot_hourly_change = tooncntoot_count - one_hour_ago_val['tooncntootcount']
+    tootcnuser_hourly_change = tootcnuser_count - one_hour_ago_val['tootcnusercount']
+    tootcntoot_hourly_change = tootcntoot_count - one_hour_ago_val['tootcntootcount']
     acguser_hourly_change = acguser_count - one_hour_ago_val['acgusercount']
     acgtoot_hourly_change = acgtoot_count - one_hour_ago_val['acgtootcount']
 
