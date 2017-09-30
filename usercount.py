@@ -179,10 +179,10 @@ one_week = six_hour * 28
 if len(usercount_dict) > 2:
     six_hour_ago_ts = ts - six_hour
     six_hour_ago_val = find_closest_timestamp( usercount_dict, six_hour_ago_ts )
-    six_hourly_change = user_count - six_hour_ago_val['usercount']
-    print "Six-Hourly change %s"%hourly_change
-    if six_hourly_change > 0:
-        sixhourly_change_string = "过去六小时中" + " + " + format(hourly_change, ",d") + "位用户\n"
+    sixhourly_change = user_count - six_hour_ago_val['usercount']
+    print "Six-Hourly change %s"%sixhourly_change
+    if sixhourly_change > 0:
+        sixhourly_change_string = "过去六小时中" + " + " + format(sixhourly_change, ",d") + "位用户\n"
 
 # Daily change
 if len(usercount_dict) > 6:
