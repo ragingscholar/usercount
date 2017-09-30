@@ -181,8 +181,8 @@ if len(usercount_dict) > 2:
     six_hour_ago_val = find_closest_timestamp( usercount_dict, six_hour_ago_ts )
     six_hourly_change = user_count - six_hour_ago_val['usercount']
     print "Six-Hourly change %s"%hourly_change
-    if hourly_change > 0:
-        hourly_change_string = "过去六小时中" + " + " + format(hourly_change, ",d") + "位用户\n"
+    if six_hourly_change > 0:
+        sixhourly_change_string = "过去六小时中" + " + " + format(hourly_change, ",d") + "位用户\n"
 
 # Daily change
 if len(usercount_dict) > 6:
@@ -205,32 +205,32 @@ if len(usercount_dict) > 28:
 # Chinese Instance Monitoring
 # Hourly change
 if len(cnusercount_dict) > 2:
-    one_hour_ago_ts = ts - one_hour
-    one_hour_ago_val = find_closest_timestamp( cnusercount_dict, one_hour_ago_ts )
-    cnuser_hourly_change = cnuser_count - one_hour_ago_val['cnusercount']
-    # cninstance_hourly_change = cninstance_count - one_hour_ago_val['cninstancecount']
+    six_hour_ago_ts = ts - six_hour
+    six_hour_ago_val = find_closest_timestamp( cnusercount_dict, six_hour_ago_ts )
+    cnuser_sixhourly_change = cnuser_count - six_hour_ago_val['cnusercount']
+    # cninstance_hourly_change = cninstance_count - six_hour_ago_val['cninstancecount']
 
-    cmxuser_hourly_change = cmxuser_count - one_hour_ago_val['cmxusercount']
-    cmxtoot_hourly_change = cmxtoot_count - one_hour_ago_val['cmxtootcount']
-    tootcnuser_hourly_change = tootcnuser_count - one_hour_ago_val['tootcnusercount']
-    tootcntoot_hourly_change = tootcntoot_count - one_hour_ago_val['tootcntootcount']
-    acguser_hourly_change = acguser_count - one_hour_ago_val['acgusercount']
-    acgtoot_hourly_change = acgtoot_count - one_hour_ago_val['acgtootcount']
+    cmxuser_sixhourly_change = cmxuser_count - six_hour_ago_val['cmxusercount']
+    cmxtoot_sixhourly_change = cmxtoot_count - six_hour_ago_val['cmxtootcount']
+    tootcnuser_sixhourly_change = tootcnuser_count - six_hour_ago_val['tootcnusercount']
+    tootcntoot_sixhourly_change = tootcntoot_count - six_hour_ago_val['tootcntootcount']
+    acguser_sixhourly_change = acguser_count - six_hour_ago_val['acgusercount']
+    acgtoot_sixhourly_change = acgtoot_count - six_hour_ago_val['acgtootcount']
 
-    print "CN User Hourly change %s"%cnuser_hourly_change
+    print "CN User Six-Hourly change %s"%cnuser_sixhourly_change
     # print "CN Instance Hourly change %s"%cninstance_hourly_change
-    print "CMX User Hourly change %s"%cmxuser_hourly_change
-    print "CMX Toot Hourly change %s"%cmxtoot_hourly_change
+    print "CMX User Six-Hourly change %s"%cmxuser_sixhourly_change
+    print "CMX Toot Six-Hourly change %s"%cmxtoot_sixhourly_change
 
-    cnuser_hourly_change_string = "+ " + format(cnuser_hourly_change, ",d") + "(" + format(cnuser_count, ",d") + ") 位用户\n"
+    cnuser_sixhourly_change_string = "+ " + format(cnuser_sixhourly_change, ",d") + "(" + format(cnuser_count, ",d") + ") 位用户\n"
 
     # cninstance_hourly_change_string = "+" + format(cninstance_hourly_change, ",d") + "(" + format(cninstance_count, ",d") + ") 位用户\n"
-    cmxuser_hourly_change_string = "+ " + format(cmxuser_hourly_change, ",d") + "(" + format(cmxuser_count, ",d") + ") 位用户\n"
-    cmxtoot_hourly_change_string = "+ " + format(cmxtoot_hourly_change, ",d") + "(" + format(cmxtoot_count, ",d") + ") 条嘟文\n"
-    tootcnuser_hourly_change_string = "+ " + format(tootcnuser_hourly_change, ",d") + "(" + format(tootcnuser_count, ",d") + ") 位用户\n"
-    tootcntoot_hourly_change_string = "+ " + format(tootcntoot_hourly_change, ",d") + "(" + format(tootcntoot_count, ",d") + ") 条嘟文\n"
-    acguser_hourly_change_string = "+ " + format(acguser_hourly_change, ",d") + "(" + format(acguser_count, ",d") + ") 位用户\n"
-    acgtoot_hourly_change_string = "+ " + format(acgtoot_hourly_change, ",d") + "(" + format(acgtoot_count, ",d") + ") 条嘟文\n"
+    cmxuser_sixhourly_change_string = "+ " + format(cmxuser_sixhourly_change, ",d") + "(" + format(cmxuser_count, ",d") + ") 位用户\n"
+    cmxtoot_sixhourly_change_string = "+ " + format(cmxtoot_sixhourly_change, ",d") + "(" + format(cmxtoot_count, ",d") + ") 条嘟文\n"
+    tootcnuser_sixhourly_change_string = "+ " + format(tootcnuser_sixhourly_change, ",d") + "(" + format(tootcnuser_count, ",d") + ") 位用户\n"
+    tootcntoot_sixhourly_change_string = "+ " + format(tootcntoot_sixhourly_change, ",d") + "(" + format(tootcntoot_count, ",d") + ") 条嘟文\n"
+    acguser_sixhourly_change_string = "+ " + format(acguser_sixhourly_change, ",d") + "(" + format(acguser_count, ",d") + ") 位用户\n"
+    acgtoot_sixhourly_change_string = "+ " + format(acgtoot_sixhourly_change, ",d") + "(" + format(acgtoot_count, ",d") + ") 条嘟文\n"
 
     # sys.exit(0)
 ###############################################################################
@@ -246,7 +246,7 @@ if do_upload:
     file_to_upload = '/home/mastodon/countbot/graph.png'
 
     print "Uploading %s..."%file_to_upload
-    media_dict = mastodon.media_post(file_to_upload)
+    # media_dict = mastodon.media_post(file_to_upload)
 
     print "Uploaded file, returned:"
     print str(media_dict)
@@ -258,7 +258,7 @@ if do_upload:
     toot_text = "<-----长毛象宇宙中----->\n"
     toot_text += format(user_count, ",d") + " 位用户\n"
     toot_text += format(instance_count, ",d") + " 个已知活跃实例\n"
-    toot_text += hourly_change_string
+    toot_text += sixhourly_change_string
     toot_text += daily_change_string
     toot_text += weekly_change_string
     # toot_text += "<-----长毛象中文区----->\n"
@@ -266,22 +266,22 @@ if do_upload:
     # toot_text += format(cninstance_count, ",d") + " 个已知中文实例\n"
     # toot_text += cnuser_hourly_change_string
     toot_text += "<--------cmx.im-------->\n"
-    toot_text += cmxuser_hourly_change_string
-    toot_text += cmxtoot_hourly_change_string
+    toot_text += cmxuser_sixhourly_change_string
+    toot_text += cmxtoot_sixhourly_change_string
     # toot_text += "cmx.im共有 " + format(cmxuser_count, ",d") + " 位用户\n"
     # toot_text += "他们一共嘟出了 " + format(cmxtoot_count, ",d") + " 条嘟文\n"
     toot_text += "<------tootcn.com------>\n"
-    toot_text += tootcnuser_hourly_change_string
-    toot_text += tootcntoot_hourly_change_string
+    toot_text += tootcnuser_sixhourly_change_string
+    toot_text += tootcntoot_sixhourly_change_string
     toot_text += "<--------acg.mn-------->\n"
-    toot_text += acguser_hourly_change_string
-    toot_text += acgtoot_hourly_change_string
+    toot_text += acguser_sixhourly_change_string
+    toot_text += acgtoot_sixhourly_change_string
 
 
     print "Tooting..."
     print toot_text
 
-    mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
+    # mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
 
     print "Successfully tooted!"
 else:
