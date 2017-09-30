@@ -27,20 +27,20 @@ if '--no-upload' in sys.argv:
     do_upload = False
 
 # Check mastostats.csv exists, if not, create it
-if not os.path.isfile("mastostats.csv"):
+if not os.path.isfile("/home/mastodon/countbot/mastostats.csv"):
         print("mastostats.csv does not exist, creating it...")
 
         # Create CSV header row
-        with open("mastostats.csv", "w") as myfile:
+        with open("/home/mastodon/countbot/mastostats.csv", "w") as myfile:
             myfile.write("timestamp,usercount,instancecount\n")
         myfile.close()
 
 # Check cnmastostats.csv exists, if not, create it
-if not os.path.isfile("cnmastostats.csv"):
+if not os.path.isfile("/home/mastodon/countbot/cnmastostats.csv"):
         print("cnmastostats.csv does not exist, creating it...")
 
         # Create CSV header row
-        with open("cnmastostats.csv", "w") as myfile:
+        with open("/home/mastodon/countbot/cnmastostats.csv", "w") as myfile:
             myfile.write("timestamp,cnusercount,cninstancecount,cmxusercount,cmxtootcount,tootcnusercount,tootcntootcount,acgusercount,acgtootcount\n")
         myfile.close()
 
@@ -62,13 +62,13 @@ def get_parameter( parameter, file_path ):
     sys.exit(0)
 
 # Load secrets from secrets file
-secrets_filepath = "secrets/secrets.txt"
+secrets_filepath = "/home/mastodon/countbot/secrets/secrets.txt"
 uc_client_id     = get_parameter("uc_client_id",     secrets_filepath)
 uc_client_secret = get_parameter("uc_client_secret", secrets_filepath)
 uc_access_token  = get_parameter("uc_access_token",  secrets_filepath)
 
 # Load configuration from config file
-config_filepath = "config.txt"
+config_filepath = "/home/mastodon/countbot/config.txt"
 mastodon_hostname = get_parameter("mastodon_hostname", config_filepath) # E.g., mastodon.social
 
 # Initialise Mastodon API
