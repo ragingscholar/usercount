@@ -165,25 +165,27 @@ def find_closest_timestamp( input_dict, seek_timestamp ):
 
 
 # Calculate difference in times
-hourly_change_string = ""
+# hourly_change_string = ""
+sixhourly_change_string = ""
 daily_change_string  = ""
 weekly_change_string = ""
 
-one_hour = 60 * 60
-one_day  = one_hour * 24
-one_week = one_hour * 168
+# one_hour = 60 * 60
+six_hour = 60 * 60 * 6
+one_day  = six_hour * 4
+one_week = six_hour * 28
 
-# Hourly change
+# Six-Hourly change
 if len(usercount_dict) > 2:
-    one_hour_ago_ts = ts - one_hour
-    one_hour_ago_val = find_closest_timestamp( usercount_dict, one_hour_ago_ts )
-    hourly_change = user_count - one_hour_ago_val['usercount']
-    print "Hourly change %s"%hourly_change
+    six_hour_ago_ts = ts - six_hour
+    six_hour_ago_val = find_closest_timestamp( usercount_dict, six_hour_ago_ts )
+    six_hourly_change = user_count - six_hour_ago_val['usercount']
+    print "Six-Hourly change %s"%hourly_change
     if hourly_change > 0:
-        hourly_change_string = "过去一小时中" + " + " + format(hourly_change, ",d") + "位用户\n"
+        hourly_change_string = "过去六小时中" + " + " + format(hourly_change, ",d") + "位用户\n"
 
 # Daily change
-if len(usercount_dict) > 24:
+if len(usercount_dict) > 6:
     one_day_ago_ts = ts - one_day
     one_day_ago_val = find_closest_timestamp( usercount_dict, one_day_ago_ts )
     daily_change = user_count - one_day_ago_val['usercount']
@@ -192,7 +194,7 @@ if len(usercount_dict) > 24:
         daily_change_string = "过去一天中" + " + " + format(daily_change, ",d") + "位用户\n"
 
 # Weekly change
-if len(usercount_dict) > 168:
+if len(usercount_dict) > 28:
     one_week_ago_ts = ts - one_week
     one_week_ago_val = find_closest_timestamp( usercount_dict, one_week_ago_ts )
     weekly_change = user_count - one_week_ago_val['usercount']
