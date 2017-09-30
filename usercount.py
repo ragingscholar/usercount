@@ -246,7 +246,7 @@ if do_upload:
     file_to_upload = '/home/mastodon/countbot/graph.png'
 
     print "Uploading %s..."%file_to_upload
-    # media_dict = mastodon.media_post(file_to_upload)
+    media_dict = mastodon.media_post(file_to_upload)
 
     print "Uploaded file, returned:"
     print str(media_dict)
@@ -281,7 +281,7 @@ if do_upload:
     print "Tooting..."
     print toot_text
 
-    # mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
+    mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
 
     print "Successfully tooted!"
 else:
