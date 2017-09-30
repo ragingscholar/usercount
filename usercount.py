@@ -236,12 +236,12 @@ if len(cnusercount_dict) > 2:
 ###############################################################################
 
 # Generate chart
-call(["gnuplot", "generate.gnuplot"])
+call(["gnuplot", "/home/mastodon/countbot/generate.gnuplot"])
 
 
 if do_upload:
     # Upload chart
-    file_to_upload = 'graph.png'
+    file_to_upload = '/home/mastodon/countbot/graph.png'
 
     print "Uploading %s..."%file_to_upload
     media_dict = mastodon.media_post(file_to_upload)
