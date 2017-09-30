@@ -23,18 +23,18 @@ set datafile separator ","
 set xrange [time(0) - timespan:]
 
 # Plot 'usercount' of the past week and get bounds (for GRAPH 1 y1)
-plot "mastostats.csv" using 1:2
+plot "/home/mastodon/countbot/mastostats.csv" using 1:2
 usercountlow = 0
 #usercountlow = GPVAL_DATA_Y_MIN
 usercounthigh = GPVAL_DATA_Y_MAX
 
 # Plot derivative of 'usercount' of the past week and get bounds (for GRAPH 1 y2)
-plot "mastostats.csv" using ($1):(d($2))
+plot "/home/mastodon/countbot/mastostats.csv" using ($1):(d($2))
 uc_derivative_low = GPVAL_DATA_Y_MIN
 uc_derivative_high = GPVAL_DATA_Y_MAX
 
 # Plot derivative of 'instancecount' of the past week and get bounds (for GRAPH 2 y1)
-plot "mastostats.csv" using 1:3
+plot "/home/mastodon/countbot/mastostats.csv" using 1:3
 instanceslow  = GPVAL_DATA_Y_MIN
 instanceshigh = GPVAL_DATA_Y_MAX
 
@@ -43,7 +43,7 @@ instanceshigh = GPVAL_DATA_Y_MAX
 ###############################################################################
 
 # Set up our fonts and such
-set terminal png truecolor size 1464,660 enhanced font "/home/lode/usercount/fonts/RobotoCond.ttf" 16 background rgb "#282d37"
+set terminal png truecolor size 1464,660 enhanced font "/home/mastodon/countbot/fonts/RobotoCond.ttf" 16 background rgb "#282d37"
 set output 'graph.png'
 
 # Set border colour and line width
@@ -83,7 +83,7 @@ rmarg = 12       # Right margin
 
 
 ###############################################################################
-# GRAPH 1 
+# GRAPH 1
 # Current usercount & the derivative (rate of new users joining) (last 7 days)
 ###############################################################################
 
@@ -98,8 +98,8 @@ set ylabel "Number of users" textcolor rgb "#93ddff" offset 1,0,0
 
 # Set Y2 axis
 set y2r [0:uc_derivative_high * 2]
-set y2label 'Hourly increase' textcolor rgb "#7ae9d8" 
-set y2tics 3000 
+set y2label 'Hourly increase' textcolor rgb "#7ae9d8"
+set y2tics 3000
 
 # Set X axis
 set xdata time
@@ -119,7 +119,7 @@ set style line 12 lc rgb "#FEFEFE" lt 1 lw 5
 set grid
 
 # Plot the graph
-plot "mastostats.csv" every ::1 using 1:2 w filledcurves x1 title '' lc rgb "#2e85ad", \
+plot "/home/mastodon/countbot/mastostats.csv" every ::1 using 1:2 w filledcurves x1 title '' lc rgb "#2e85ad", \
         '' u ($1):(d($2)) w filledcurves x1 title '' axes x1y2 fs transparent solid 0.7 noborder lc rgb "#7ae9d8"
 
 
@@ -144,7 +144,7 @@ set yr [0:instanceshigh]
 set ylabel "Active instances" textcolor rgb "#E9967A"
 
 # Set X axis
-set xdata time 
+set xdata time
 set xrange [time(0) - timespan:]
 set timefmt "%s"
 set format x "%a\n%d %b"
@@ -155,7 +155,7 @@ set style line 12 lc rgb "#FEFEFE" lt 1 lw 5
 set grid
 
 # Plot the graph
-plot "mastostats.csv" every ::1 using 1:3 w filledcurves x1 title '' lc rgb "#E9967A"
+plot "/home/mastodon/countbot/mastostats.csv" every ::1 using 1:3 w filledcurves x1 title '' lc rgb "#E9967A"
 
 
 # I think this needs to be here for some reason

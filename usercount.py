@@ -137,10 +137,10 @@ print("Number of CMX statuses %s " % cmxtoot_count)
 ###############################################################################
 
 # Append to CSV file
-with open("mastostats.csv", "a") as myfile:
+with open("/home/mastodon/countbot/mastostats.csv", "a") as myfile:
     myfile.write(str(ts) + "," + str(user_count) + "," + str(instance_count) + "\n")
 
-with open("cnmastostats.csv", "a") as myfile:
+with open("/home/mastodon/countbot/cnmastostats.csv", "a") as myfile:
     myfile.write(str(ts) + "," + str(cnuser_count) + "," + str(cninstance_count) + "," + str(cmxuser_count) + "," + str(cmxtoot_count) + "," + str(tootcnuser_count) + "," + str(tootcntoot_count) + "," + str(acguser_count) + "," + str(acgtoot_count) + "\n")
 
 ###############################################################################
@@ -148,11 +148,11 @@ with open("cnmastostats.csv", "a") as myfile:
 ###############################################################################
 
 # Load CSV file
-with open('mastostats.csv') as f:
+with open('/home/mastodon/countbot/mastostats.csv') as f:
     usercount_dict = [{k: int(v) for k, v in row.items()}
         for row in csv.DictReader(f, skipinitialspace=True)]
 
-with open('cnmastostats.csv') as f:
+with open('/home/mastodon/countbot/cnmastostats.csv') as f:
     cnusercount_dict = [{k: int(v) for k, v in row.items()}
         for row in csv.DictReader(f, skipinitialspace=True)]
 
