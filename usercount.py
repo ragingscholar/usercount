@@ -243,6 +243,7 @@ call(["gnuplot", "/home/mastodon/countbot/generate.gnuplot"])
 
 if do_upload:
     # Upload chart
+    '''
     file_to_upload = '/home/mastodon/countbot/graph.png'
 
     print "Uploading %s..."%file_to_upload
@@ -250,6 +251,7 @@ if do_upload:
 
     print "Uploaded file, returned:"
     print str(media_dict)
+    '''
 
     ###############################################################################
     # T  O  O  T !
@@ -270,18 +272,20 @@ if do_upload:
     toot_text += cmxtoot_sixhourly_change_string
     # toot_text += "cmx.im共有 " + format(cmxuser_count, ",d") + " 位用户\n"
     # toot_text += "他们一共嘟出了 " + format(cmxtoot_count, ",d") + " 条嘟文\n"
-    toot_text += "<------tootcn.com------>\n"
-    toot_text += tootcnuser_sixhourly_change_string
-    toot_text += tootcntoot_sixhourly_change_string
-    toot_text += "<--------acg.mn-------->\n"
-    toot_text += acguser_sixhourly_change_string
-    toot_text += acgtoot_sixhourly_change_string
+    # toot_text += "<------tootcn.com------>\n"
+    # toot_text += tootcnuser_sixhourly_change_string
+    # toot_text += tootcntoot_sixhourly_change_string
+    # toot_text += "<--------acg.mn-------->\n"
+    # toot_text += acguser_sixhourly_change_string
+    # toot_text += acgtoot_sixhourly_change_string
 
 
     print "Tooting..."
     print toot_text
 
-    mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
+    # mastodon.status_post(toot_text, in_reply_to_id=None, media_ids=[media_dict] )
+    mastodon.status_post(toot_text, in_reply_to_id=None)
+
 
     print "Successfully tooted!"
 else:
